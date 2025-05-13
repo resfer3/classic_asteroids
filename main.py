@@ -44,10 +44,18 @@ def main():
 
         pygame.Surface.fill(screen, "black")
         updatable.update(dt)
+        # if plane crashes, game over
         for asteroid in asteroids:
             if player.collision(asteroid) == True:
                 print("Game Over")
                 sys.exit(1)
+        # if hit by bullet, asteroid disappear
+        for asteroid in asteroids:
+            for bullet in shots:
+                if bullet.collision(asteroid) == True:
+                    asteroid.kill()
+                    bullet.kill()
+        # generate sprites
         for obj in drawable:
             obj.draw(screen)
         
